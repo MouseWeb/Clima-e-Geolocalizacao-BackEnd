@@ -1,0 +1,5 @@
+package br.com.mouseweb.exceptions;
+
+public class ObjectNotFoundException {
+
+}

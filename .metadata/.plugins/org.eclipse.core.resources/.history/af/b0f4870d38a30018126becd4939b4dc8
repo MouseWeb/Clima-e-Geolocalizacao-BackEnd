@@ -1,0 +1,40 @@
+package br.com.mouseweb.domain;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Ipv4 {
+	
+	private Integer id;
+	private String status;
+	private Data data;
+	
+	@OneToMany(mappedBy="ipv4")
+	private List<Ipv4> ipv4 = new ArrayList<>();
+	
+	public Data getData() {
+		return data;
+	}
+	public void setData(Data data) {
+		this.data = data;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	@Override
+	public String toString() {
+		return "Ipv4 [status=" + status + ", data=" + data + "]";
+	}
+	
+
+}

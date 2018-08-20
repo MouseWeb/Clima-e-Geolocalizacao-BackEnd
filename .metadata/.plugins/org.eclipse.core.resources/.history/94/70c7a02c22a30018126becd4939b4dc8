@@ -1,0 +1,24 @@
+package br.com.mouseweb.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Data {
+
+	private String ipv4;
+
+	public String getIpv4() {
+		return ipv4;
+	}
+
+	public void setIpv4(String ipv4) {
+		this.ipv4 = ipv4;
+	}
+
+	@Override
+	public String toString() {
+		return "Data [ipv4=" + ipv4 + "]";
+	}
+
+
+}

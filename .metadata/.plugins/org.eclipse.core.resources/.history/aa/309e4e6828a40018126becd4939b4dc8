@@ -1,0 +1,160 @@
+package br.com.mouseweb.domain;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.DateSerializer;
+
+@Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class LocalizacaoIpv4 {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+
+	@JsonSerialize(using = DateSerializer.class)
+	@Column(name = "ipv4")
+	private String ipv4;
+
+	@JsonSerialize(using = DateSerializer.class)
+	@Column(name = "continent_name")
+	private String continent_name;
+
+	@JsonSerialize(using = DateSerializer.class)
+	@Column(name = "country_name")
+	private String country_name;
+
+	@JsonSerialize(using = DateSerializer.class)
+	@Column(name = "subdivision_1_name")
+	private String subdivision_1_name;
+
+	@JsonSerialize(using = DateSerializer.class)
+	@Column(name = "city_name")
+	private String city_name;
+
+	@JsonSerialize(using = DateSerializer.class)
+	@Column(name = "latitude")
+	private String latitude;
+
+	@JsonSerialize(using = DateSerializer.class)
+	@Column(name = "longitude")
+	private String longitude;
+
+	@JsonBackReference
+	@ManyToMany
+	@JoinTable(name = "CLIENTE_LOCALIZACAO", 
+			joinColumns = @JoinColumn(name = "localizacao_id"),
+			inverseJoinColumns = @JoinColumn(name = "cliente_id"))
+	private List<Cliente> cliente = new ArrayList<>();
+
+	public LocalizacaoIpv4() {
+
+	}
+
+	public LocalizacaoIpv4(Integer id, String ipv4, String continent_name, String country_name,
+			String subdivision_1_name, String city_name, String latitude, String longitude, Cliente cliente) {
+		super();
+		this.id = id;
+		this.ipv4 = ipv4;
+		this.continent_name = continent_name;
+		this.country_name = country_name;
+		this.subdivision_1_name = subdivision_1_name;
+		this.city_name = city_name;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.cliente = cliente;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
+	public String getCountry_name() {
+		return country_name;
+	}
+
+	public void setCountry_name(String country_name) {
+		this.country_name = country_name;
+	}
+
+	public String getSubdivision_1_name() {
+		return subdivision_1_name;
+	}
+
+	public void setSubdivision_1_name(String subdivision_1_name) {
+		this.subdivision_1_name = subdivision_1_name;
+	}
+
+	public String getCity_name() {
+		return city_name;
+	}
+
+	public void setCity_name(String city_name) {
+		this.city_name = city_name;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getContinent_name() {
+		return continent_name;
+	}
+
+	public void setContinent_name(String continent_name) {
+		this.continent_name = continent_name;
+	}
+
+	public String getIpv4() {
+		return ipv4;
+	}
+
+	public void setIpv4(String ipv4) {
+		this.ipv4 = ipv4;
+	}
+
+	@Override
+	public String toString() {
+		return "LocalizacaoIpva4 [ipv4=" + ipv4 + ", continent_name=" + continent_name + ", country_name="
+				+ country_name + ", subdivision_1_name=" + subdivision_1_name + ", city_name=" + city_name
+				+ ", latitude=" + latitude + ", longitude=" + longitude + "]";
+	}
+
+}

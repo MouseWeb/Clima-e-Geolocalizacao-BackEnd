@@ -1,0 +1,39 @@
+package br.com.mouseweb.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Ipv4 {
+	
+	private String status;
+	private Clima data;
+	
+	public Ipv4() {
+		
+	}
+	
+	public Ipv4(String status, Clima data) {
+		super();
+		this.status = status;
+		this.data = data;
+	}
+
+	public Clima getData() {
+		return data;
+	}
+	public void setData(Clima data) {
+		this.data = data;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	@Override
+	public String toString() {
+		return "Ipv4 [status=" + status + ", data=" + data + "]";
+	}
+	
+
+}

@@ -1,0 +1,9 @@
+package br.com.mouseweb.domain;
+
+public class Ipv4 {
+	
+	private String ipv4;
+	
+	
+
+}

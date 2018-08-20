@@ -1,0 +1,24 @@
+package br.com.mouseweb.domain;
+
+public class Ipv4 {
+	
+	private String ipv4;
+
+	public String getIpv4() {
+		return ipv4;
+	}
+
+	public void setIpv4(String ipv4) {
+		this.ipv4 = ipv4;
+	}
+
+	public Ipv4() {
+		
+	}
+	
+	@Override
+	public String toString() {
+		return "Ipv4 [ipv4=" + ipv4 + "]";
+	}
+
+}

@@ -1,0 +1,8 @@
+package br.com.mouseweb.domain;
+
+import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+public class Clima {
+	
+}

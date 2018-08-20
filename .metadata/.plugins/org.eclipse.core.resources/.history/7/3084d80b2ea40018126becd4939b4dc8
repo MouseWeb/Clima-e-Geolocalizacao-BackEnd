@@ -1,0 +1,80 @@
+package br.com.mouseweb;
+
+import java.util.Arrays;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
+import br.com.mouseweb.domain.Cliente;
+import br.com.mouseweb.domain.Ipv4;
+import br.com.mouseweb.domain.LocalizacaoIpv4;
+import br.com.mouseweb.domain.Tempo;
+import br.com.mouseweb.enums.TipoCliente;
+import br.com.mouseweb.repositories.ClienteRepository;
+import br.com.mouseweb.repositories.LocalizacaoRepository;
+import br.com.mouseweb.repositories.TempoRepository;
+
+@SpringBootApplication
+public class UolApplication {
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private LocalizacaoRepository localizacaoRepository;
+	
+	@Autowired
+	private TempoRepository tempoRepository;
+
+	public static void main(String[] args) {
+		SpringApplication.run(UolApplication.class, args);
+		
+	        RestTemplate restTemplate = new RestTemplate();
+	        Ipv4 localizacaoIpva4 = restTemplate.getForObject("https://ipvigilante.com/json", Ipv4.class);
+			System.out.println(localizacaoIpva4); 
+			
+			Tempo temp = restTemplate.getForObject("https://www.metaweather.com/api/location/455827", Tempo.class);
+			System.out.println(temp); 
+			
+	}
+
+	@Bean
+	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+		return builder.build();
+	}
+
+	@Bean
+	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
+		return args -> {
+			
+			// INSTANCIANDO O CLIENTE
+			Cliente cli1 = new Cliente(null, "Douglas Coelho", 25, TipoCliente.PESSOA_JURIDICA);
+			Cliente cli2 = new Cliente(null, "Leticia Martins", 23, TipoCliente.PESSOA_FISICA);
+			
+			LocalizacaoIpv4 localizacaoIpva4 = new LocalizacaoIpv4(null, "179.235.97.37", "South America", "Brazil"
+					, "Sao Paulo", "Guarulhos", "-23.45070", "-46.52620");
+			
+			LocalizacaoIpv4 localizacaoIpv41 = new LocalizacaoIpv4(null, "179.235.97.37", "South America", "Brazil"
+					, "Sao Paulo", "Guarulhos", "-23.45070", "-46.52620");
+			
+			Tempo tempo = new Tempo(null, "12.47999", "24.185");
+			
+			Tempo tempo1 = new Tempo(null, "12.47999", "24.185");
+			
+			cli1.getLocalizacaoIpv4s().addAll(Arrays.asList(localizacaoIpva4));
+			cli1.getTempos().addAll(Arrays.asList(tempo));
+			
+			cli2.getLocalizacaoIpv4s().addAll(Arrays.asList(localizacaoIpva4));
+			cli2.getTempos().addAll(Arrays.asList(tempo));
+			
+			clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+			localizacaoRepository.saveAll(Arrays.asList(localizacaoIpva4, localizacaoIpv41));
+			tempoRepository.saveAll(Arrays.asList(tempo, tempo1));
+			
+		};
+
+	}
+}

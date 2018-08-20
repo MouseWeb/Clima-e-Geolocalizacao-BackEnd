@@ -1,0 +1,53 @@
+package br.com.mouseweb;
+
+import java.util.Arrays;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
+
+import br.com.mouseweb.domain.Cliente;
+import br.com.mouseweb.domain.Ipv4;
+import br.com.mouseweb.enums.TipoCliente;
+import br.com.mouseweb.repositories.ClienteRepository;
+
+@SpringBootApplication
+public class UolApplication {
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+
+	private static final Logger log = LoggerFactory.getLogger(UolApplication.class);
+
+	public static void main(String[] args) {
+		SpringApplication.run(UolApplication.class, args);
+	}
+
+	@Bean
+	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+		return builder.build();
+	}
+
+	@Bean
+	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
+		return args -> {
+//			Data Data = new Data();
+
+			Ipv4 ipv4 = restTemplate.getForObject("https://ipvigilante.com/json", Ipv4.class);
+//			Ipv4 temp = restTemplate.getForObject("https://www.metaweather.com/api/location/search", Ipv4.class);
+			log.info(ipv4.toString());
+		};
+
+		// INSTANCIANDO O CLIENTE COM ENDEREÇO
+		Cliente cli1 = new Cliente(null, "Douglas Coelho", 25, TipoCliente.PESSOA_JURIDICA);
+
+		clienteRepository.saveAll(Arrays.asList(cli1));
+
+	}
+}

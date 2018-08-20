@@ -1,0 +1,30 @@
+package br.com.mouseweb.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Data {
+
+	private String ipv4;
+	private String continent_name;
+	private String country_name;
+	private String subdivision_1_name;
+
+	public String getContinent_name() {
+		return continent_name;
+	}
+
+	public void setContinent_name(String continent_name) {
+		this.continent_name = continent_name;
+	}
+
+	public String getIpv4() {
+		return ipv4;
+	}
+
+	public void setIpv4(String ipv4) {
+		this.ipv4 = ipv4;
+	}
+
+	
+}
