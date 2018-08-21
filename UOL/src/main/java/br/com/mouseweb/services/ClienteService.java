@@ -14,14 +14,14 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository repo;
 
-	// BUSCA CLIENTE POR ID -> (FindById)
+	// LISTAR CLIENTE POR ID -> (FindById)
 	public Cliente findById(Integer id) {
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Cliente não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 	
-	// BUSCA TODOS OS CLIENTES -> (FindAll)
+	// LISTAR TODOS OS CLIENTES -> (FindAll)
 	public List<Cliente> findAll() {
 		return repo.findAll();
 	}

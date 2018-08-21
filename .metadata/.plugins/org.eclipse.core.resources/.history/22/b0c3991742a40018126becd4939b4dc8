@@ -1,0 +1,47 @@
+package br.com.mouseweb.services;
+
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import br.com.mouseweb.domain.Cliente;
+import br.com.mouseweb.exceptions.ObjectNotFoundException;
+import br.com.mouseweb.repositories.ClienteRepository;
+
+@Service
+public class ClienteService {
+
+	@Autowired
+	private ClienteRepository repo;
+
+	// BUSCA CLIENTE POR ID -> (FindById)
+	public Cliente findById(Integer id) {
+		Optional<Cliente> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Cliente não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
+	}
+	
+	// BUSCA TODOS OS CLIENTES -> (FindAll)
+	public List<Cliente> findAll() {
+		return repo.findAll();
+	}
+	
+	// INSERINDO UM NOVO CLIENTE -> (INSERT)
+	public Cliente insert(Cliente obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
+	
+	// ATUALIZANDO OS DADOS DO CLIENTE -> (PUT)
+	public Cliente update(Cliente obj) {
+		findById(obj.getId());
+		return repo.save(obj);
+	}
+	
+	// DELETANDO CLIENTE POR ID - (DELETE)
+	public void delete(Integer id) {
+		findById(id);
+		repo.deleteById(id);
+	}
+
+}

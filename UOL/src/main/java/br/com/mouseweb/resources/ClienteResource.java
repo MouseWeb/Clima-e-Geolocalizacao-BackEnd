@@ -20,7 +20,7 @@ public class ClienteResource {
 	@Autowired
 	private ClienteService service;
 
-	// BUSCAR CLIENTE POR -> ID <- | FindById |
+	// BUSCA CLIENTE POR -> ID <- | FindById |
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Cliente> find(@PathVariable Integer id) {
 		Cliente obj = service.findById(id);
@@ -28,7 +28,7 @@ public class ClienteResource {
 
 	}
 
-	// BUSCAR TODOS OS CLIENTES -> (FindAll)
+	// BUSCA TODOS OS CLIENTES -> (FindAll)
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Cliente>> findAll() {
 		List<Cliente> list = service.findAll();

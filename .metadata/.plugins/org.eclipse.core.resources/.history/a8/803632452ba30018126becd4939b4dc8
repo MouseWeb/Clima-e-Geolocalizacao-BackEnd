@@ -1,8 +1,0 @@
-package br.com.mouseweb.domain;
-
-public class Cliente {
-
-	private Integer id;
-	private String nome;
-	private Integer idade;
-}
